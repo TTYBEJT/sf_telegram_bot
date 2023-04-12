@@ -5,6 +5,7 @@ import time
 from bs4 import BeautifulSoup
 import random
 import asyncio
+import
 
 # TOKEN = "6074047522:AAEVGXN4uk7wkgt8PdfPZEjnNT89b-v5tfw"
 
@@ -21,6 +22,13 @@ usd_s: float = 0.0
 usd_b: float = 0.0
 eur_s: float = 0.0
 eur_b: float = 0.0
+
+
+@bot.message_handler(commands=['start', 'hello'])
+def handle_start(message):
+    username = username_(message)
+    bot.reply_to(message, f"Привет, {username}! Давай начнем!")
+    pass
 
 
 def username_(message):
@@ -54,7 +62,7 @@ def bad(rate):  # События со снижением курса
         1: f"Новости ухудшаются, пора доставать перчатки для проверки мусорок, ведь курс упал и он теперь ниже {rate}... Точнее: {rub_b}",
         2: f"Ну что же, друзья, мы медленно катимся ко дну... Курс опустился ниже {rate}. Точнее: {rub_b}",
         3: f"Этот мир на нас обижен... Курс опустился ниже {rate}. Точнее: {rub_b}"
-        }
+    }
     return variants.get(n)
 
 
@@ -65,7 +73,7 @@ def good(rate):  # События с повышением курса
         2: f"Мы можем выходить в город, курс поднялся выше {rate}, сейчас он колеблется в районе {rub_b}",
         3: f"Ура, пора гулять, ведь курс поднялся выше {rate}, если быть точнее, то он {rub_b}",
         4: f"Время исполнения желаний, ну почти... Курс поднялся выше {rate}! Сейчас он колеблется в районе {rub_b}"
-        }
+    }
     return variants.get(n)
 
 
@@ -91,19 +99,24 @@ def update():
             print(bad(six))
         if rub_check > seven > rub_b:
             print(bad(seven))
-        print("Проверку провел!")
+        print("Курс изменился!")
     return
 
 
-async def check_every_3_minutes():
-    while True:
-        update()  # Функция проверки
-        await asyncio.sleep(180)  # 180 секунд = 3 минуты
+while True:
+    update()  # Функция проверки
+    time.sleep(10)  # 180 секунд = 3 минуты
 
 
-async def main():
-    # Запуск функции проверки
-    await check_every_3_minutes()
+# async def check_every_3_minutes():
+#     while True:
+#         update()  # Функция проверки
+#         await asyncio.sleep(10)  # 180 секунд = 3 минуты
+#
+#
+# async def main():
+#     # Запуск функции проверки
+#     await check_every_3_minutes()
 
 
 @bot.message_handler(commands=['start', 'hello'])

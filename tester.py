@@ -1,6 +1,8 @@
 import telebot
 import requests
 from bs4 import BeautifulSoup
+import asyncio
+
 
 # TOKEN = "6074047522:AAEVGXN4uk7wkgt8PdfPZEjnNT89b-v5tfw"
 
@@ -47,4 +49,16 @@ def update():
 update()
 print(usd_b, usd_s, eur_b, eur_s, rub_b, rub_s)
 
+
 # bot.polling(none_stop=True)
+async def check_every_3_minutes():
+    while True:
+        print("10 сек")  # Функция проверки
+        await asyncio.sleep(10)  # 180 секунд = 3 минуты
+
+
+async def main():
+    # Запуск функции проверки
+    await check_every_3_minutes()
+
+asyncio.run(main())
