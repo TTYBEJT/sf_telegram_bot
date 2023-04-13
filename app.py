@@ -5,7 +5,8 @@ import time
 from bs4 import BeautifulSoup
 import random
 import asyncio
-import
+import threading
+
 
 # TOKEN = "6074047522:AAEVGXN4uk7wkgt8PdfPZEjnNT89b-v5tfw"
 
@@ -22,13 +23,6 @@ usd_s: float = 0.0
 usd_b: float = 0.0
 eur_s: float = 0.0
 eur_b: float = 0.0
-
-
-@bot.message_handler(commands=['start', 'hello'])
-def handle_start(message):
-    username = username_(message)
-    bot.reply_to(message, f"Привет, {username}! Давай начнем!")
-    pass
 
 
 def username_(message):
@@ -103,20 +97,20 @@ def update():
     return
 
 
-while True:
-    update()  # Функция проверки
-    time.sleep(10)  # 180 секунд = 3 минуты
+# while True:
+#     update()  # Функция проверки
+#     time.sleep(10)  # 180 секунд = 3 минуты
 
 
-# async def check_every_3_minutes():
-#     while True:
-#         update()  # Функция проверки
-#         await asyncio.sleep(10)  # 180 секунд = 3 минуты
-#
-#
-# async def main():
-#     # Запуск функции проверки
-#     await check_every_3_minutes()
+async def check_every_3_minutes():
+    while True:
+        update()  # Функция проверки
+        await asyncio.sleep(180)  # 180 секунд = 3 минуты
+
+
+async def main():
+    # Запуск функции проверки
+    await check_every_3_minutes()
 
 
 @bot.message_handler(commands=['start', 'hello'])
@@ -126,6 +120,22 @@ def handle_start(message):
     pass
 
 
-asyncio.run(main())
+@bot.message_handler(commands=['help'])
+def handle_help(message):
+    bot.reply_to(message, "Основная валюта бота - рубль, он умеет:"
+                          "1) Подсказывать курс драма [/rate]"
+                          "2) Выводить все доступные валюты, с их курсом относительно рубля"
+                          "3) Рассчитывать стоимость валюты [<Требуемая валюта> <Сумма> <Наличная валюта>]"
+                          "Функционал бота ограничен, но весьма полезен! Сайт курса валют: Rate.am")
+    pass
 
+
+@bot.message_handler(commands=['rates'])
+def handle_help(message):
+    bot.reply_to(message, "Ты думаешь я такой умный?!")
+    pass
+
+
+thread = threading.Thread(target=asyncio.run(main()))
+# thread.start()
 bot.polling(none_stop=True)
