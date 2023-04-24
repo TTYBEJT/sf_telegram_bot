@@ -7,15 +7,11 @@ from utils import update
 bot = telebot.TeleBot(TOKEN)
 
 
+# Определение Username
 def username_(message):
     username = message.from_user.username
     username = message.from_user.first_name if not username else username
     return username
-
-
-while True:
-    update()  # Функция проверки
-    time.sleep(180)  # 180 секунд = 3 минуты
 
 
 # Команды бота
@@ -45,6 +41,7 @@ def handle_help(message):
 def handle_help(message):
     bot.reply_to(message, "Ты думаешь я такой умный?!")
     pass
+
 
 # Запуск без помех (ну или игнорируем, x3)
 bot.polling(none_stop=True)

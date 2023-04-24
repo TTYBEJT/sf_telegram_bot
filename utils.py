@@ -1,11 +1,11 @@
 from config import four, five, six, seven, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
+
+from app import bot  # Что с тобой не так?
+
 from bs4 import BeautifulSoup
 import random
 import requests
-from app import bot
-
-
-# Определение Username
+import time
 
 
 # Рассылка сообщений
@@ -85,3 +85,8 @@ def update():
             mailing(bad(seven))
         print("Курс изменился!")
     return
+
+
+while True:
+    update()  # Функция проверки
+    time.sleep(180)  # 180 секунд = 3 минуты
