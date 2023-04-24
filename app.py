@@ -11,7 +11,7 @@ import threading
 
 
 TOKEN = None
-with open("C:\Users\pasha\Documents\token.txt") as f:
+with open("token.txt") as f:
     TOKEN = f.read().strip()
 
 # настройки логгера
@@ -124,10 +124,15 @@ def update():
 
 
 # Асинхронный запуск функции проверки курса и таймер на 3 минуты
-async def updater():
-    while True:
-        update()  # Функция проверки
-        await asyncio.sleep(180)  # 180 секунд = 3 минуты
+# async def updater():
+#     while True:
+#         update()  # Функция проверки
+#         await asyncio.sleep(180)  # 180 секунд = 3 минуты
+
+
+while True:
+    update()  # Функция проверки
+    time.sleep(180)  # 180 секунд = 3 минуты
 
 
 # Стартер циклического двигателя проверятора
@@ -207,8 +212,8 @@ def handle_help(message):
 # thread = threading.Thread(target=asyncio.run(main()))
 # thread.start()
 
-loop = asyncio.get_event_loop()
-loop.create_task(checker())
+# loop = asyncio.get_event_loop()
+# loop.create_task(checker())
 
 # Запуск без помех (ну или игнорируем, x3)
 bot.polling(none_stop=True)
