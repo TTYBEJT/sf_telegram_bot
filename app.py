@@ -9,9 +9,10 @@ import asyncio
 import logging
 import threading
 
-# TOKEN = "6074047522:AAEVGXN4uk7wkgt8PdfPZEjnNT89b-v5tfw"
 
-TOKEN = "6016539624:AAFVQDjxs1Ig1uOgQT7Skrb4VT14rHFgkgc"
+TOKEN = None
+with open("C:\Users\pasha\Documents\token.txt") as f:
+    TOKEN = f.read().strip()
 
 # настройки логгера
 logging.basicConfig(level=logging.INFO)
@@ -209,7 +210,7 @@ def handle_help(message):
 loop = asyncio.get_event_loop()
 loop.create_task(checker())
 
-# Запуск без помех (ну или игнорируем)
+# Запуск без помех (ну или игнорируем, x3)
 bot.polling(none_stop=True)
 
 # async def bot_polling():
