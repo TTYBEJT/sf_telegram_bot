@@ -1,5 +1,4 @@
 import telebot
-# import aiogram
 import requests
 import sched
 import time
