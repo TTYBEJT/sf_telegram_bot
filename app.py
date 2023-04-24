@@ -123,16 +123,16 @@ def update():
 
 
 # Асинхронный запуск функции проверки курса и таймер на 3 минуты
-async def check_every_3_minutes():
+async def updater():
     while True:
         update()  # Функция проверки
         await asyncio.sleep(180)  # 180 секунд = 3 минуты
 
 
 # Стартер циклического двигателя проверятора
-async def main():
-    # Запуск функции проверки
-    await check_every_3_minutes()
+# async def main():
+#     # Запуск функции проверки
+#     await updater()
 
 
 # Команды бота
@@ -171,7 +171,7 @@ async def handle_help(message):
 
 # start and hello - Запуск и приветствие (банально))
 @bot.message_handler(commands=['start', 'hello'])
-async def handle_start(message):
+def handle_start(message):
     username = username_(message)
     bot.reply_to(message, f"Привет, {username}! Давай начнем!")
     pass
@@ -179,17 +179,18 @@ async def handle_start(message):
 
 # help - выдача описания и команд для работы с ботом
 @bot.message_handler(commands=['help'])
-async def handle_help(message):
-    await bot.reply_to(message, "Основная валюта бота - рубль, он умеет:"
+def handle_help(message):
+    bot.reply_to(message, "Основная валюта бота - рубль, он умеет:"
                           "1) Подсказывать курс драма [/rate]"
                           "2) Выводить все доступные валюты, с их курсом относительно рубля [/rates]"
                           "3) Рассчитывать стоимость валюты [<Требуемая валюта> <Сумма> <Наличная валюта>]"
                           "Функционал бота ограничен, но весьма полезен! Сайт курса валют: Rate.am")
+    pass
 
 
 # rates - предоставление всех доступных курсов валют
 @bot.message_handler(commands=['rates'])
-async def handle_help(message):
+def handle_help(message):
     bot.reply_to(message, "Ты думаешь я такой умный?!")
     pass
 
@@ -202,21 +203,26 @@ async def handle_help(message):
     loop.run_forever()
 '''
 
-thread = threading.Thread(target=asyncio.run(main()))
-thread.start()
+# thread = threading.Thread(target=asyncio.run(main()))
+# thread.start()
+
+loop = asyncio.get_event_loop()
+loop.create_task(checker())
+
+# Запуск без помех (ну или игнорируем)
+bot.polling(none_stop=True)
+
+# async def bot_polling():
+#     while True:
+#         try:
+#             bot.polling(none_stop=True, interval=0, timeout=20)
+#         except Exception as e:
+#             print(e)
+#             await asyncio.sleep(15)
 
 
-async def bot_polling():
-    while True:
-        try:
-            bot.polling(none_stop=True, interval=0, timeout=20)
-        except Exception as e:
-            print(e)
-            await asyncio.sleep(15)
+# async def main():
+#     asyncio.create_task(bot_polling())
 
-
-async def main():
-    asyncio.create_task(bot_polling())
-
-if __name__ == '__main__':
-    asyncio.run(main())
+# if __name__ == '__main__':
+#     asyncio.run(main())
