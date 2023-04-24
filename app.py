@@ -81,18 +81,25 @@ def update():
             mailing(good(four))
         if rub_check < five < rub_b:
             print(good(five))
+            mailing(good(five))
         if rub_check < six < rub_b:
             print(good(six))
+            mailing(good(six))
         if rub_check < seven < rub_b:
             print(good(seven))
+            mailing(good(seven))
         if rub_check > four > rub_b:
             print(bad(four))
+            mailing(bad(four))
         if rub_check > five > rub_b:
             print(bad(five))
+            mailing(bad(five))
         if rub_check > six > rub_b:
             print(bad(six))
+            mailing(bad(six))
         if rub_check > seven > rub_b:
             print(bad(seven))
+            mailing(bad(seven))
         print("Курс изменился!")
     return
 
