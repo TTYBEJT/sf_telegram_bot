@@ -14,6 +14,15 @@ def username_(message):
     return username
 
 
+# Рассылка сообщений
+def mailing(sms):
+    chats = bot.get_updates()
+    print(chats)
+    for chat in chats:
+        chat_id = chat.message.chat.id
+        bot.send_message(chat_id, sms)
+
+
 # Команды бота
 # обработчик команд для telebot
 
@@ -43,5 +52,14 @@ def handle_help(message):
     pass
 
 
-# Запуск без помех (ну или игнорируем, x3)
+# Запуск бота без помех (ну или игнорируем, x3)
 bot.polling(none_stop=True)
+
+# Запуск функции проверки
+while True:
+    sms = update()
+    if sms is not False:
+        mailing(sms)
+    time.sleep(180)  # 180 секунд = 3 минуты
+
+

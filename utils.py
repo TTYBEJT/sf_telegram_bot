@@ -1,20 +1,8 @@
 from config import four, five, six, seven, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
 
-from app import bot  # Что с тобой не так?
-
 from bs4 import BeautifulSoup
 import random
 import requests
-import time
-
-
-# Рассылка сообщений
-def mailing(sms):
-    chats = bot.get_updates()
-    print(chats)
-    for chat in chats:
-        chat_id = chat.message.chat.id
-        bot.send_message(chat_id, sms)
 
 
 # Обновление курса
@@ -59,34 +47,31 @@ def update():
     rub_check = rub_b
     usd_b, usd_s, eur_b, eur_s, rub_b, rub_s = checker()
     if rub_check != rub_b:
+        print("Курс изменился!")
         if rub_check < four < rub_b:
             print(good(four))
-            mailing(good(four))
+            return good(four)
         if rub_check < five < rub_b:
             print(good(five))
-            mailing(good(five))
+            return good(five)
         if rub_check < six < rub_b:
             print(good(six))
-            mailing(good(six))
+            return good(six)
         if rub_check < seven < rub_b:
             print(good(seven))
-            mailing(good(seven))
+            return good(seven)
         if rub_check > four > rub_b:
             print(bad(four))
-            mailing(bad(four))
+            return bad(four)
         if rub_check > five > rub_b:
             print(bad(five))
-            mailing(bad(five))
+            return bad(five)
         if rub_check > six > rub_b:
             print(bad(six))
-            mailing(bad(six))
+            return bad(six)
         if rub_check > seven > rub_b:
             print(bad(seven))
-            mailing(bad(seven))
-        print("Курс изменился!")
-    return
+            return bad(seven)
+    return False
 
 
-while True:
-    update()  # Функция проверки
-    time.sleep(180)  # 180 секунд = 3 минуты
