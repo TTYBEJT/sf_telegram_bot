@@ -1,7 +1,7 @@
 import telebot
 import time
-from config import TOKEN, four, five, six, seven, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
-from utils import update
+from config import TOKEN
+from utils import update, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
 
 # создание экземпляра бота telebot
 bot = telebot.TeleBot(TOKEN)
@@ -37,11 +37,11 @@ def handle_start(message):
 # help - выдача описания и команд для работы с ботом
 @bot.message_handler(commands=['help'])
 def handle_help(message):
-    bot.reply_to(message, "Основная валюта бота - рубль, он умеет:"
-                          "1) Подсказывать курс драма [/rate]"
-                          "2) Выводить все доступные валюты, с их курсом относительно рубля [/rates]"
-                          "3) Рассчитывать стоимость валюты [<Требуемая валюта> <Сумма> <Наличная валюта>]"
-                          "Функционал бота ограничен, но весьма полезен! Сайт курса валют: Rate.am")
+    bot.reply_to(message, """Основная валюта бота - рубль, он умеет:
+1) Подсказывать курс драма [/rate]
+2) Выводить все доступные валюты, с их курсом относительно рубля [/rates]
+3) Рассчитывать стоимость валюты [<Требуемая валюта> <Сумма наличной> <Наличная валюта>]
+Функционал бота ограничен, но весьма полезен! Сайт курса валют: Rate.am""")
     pass
 
 
@@ -49,6 +49,14 @@ def handle_help(message):
 @bot.message_handler(commands=['rates'])
 def handle_help(message):
     bot.reply_to(message, "Ты думаешь я такой умный?!")
+    pass
+
+
+@bot.message_handler(commands=['rate'])
+def handle_start(message):
+    bot.reply_to(message, f"""Курс драма сегодня примерно: {rub_b}
+Не забывай, что курс в обменнике и в интернете разнится в плоть до ± 0,1!
+Хотя обычно разница не превышает 0,02-0,03""")
     pass
 
 

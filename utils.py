@@ -1,8 +1,16 @@
-from config import four, five, six, seven, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
+from config import four, five, six, seven  #, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
 
 from bs4 import BeautifulSoup
 import random
 import requests
+
+# Создаем переменные для хранения курсов валют
+rub_s: float = 0.0
+rub_b: float = 0.0
+usd_s: float = 0.0
+usd_b: float = 0.0
+eur_s: float = 0.0
+eur_b: float = 0.0
 
 
 # Обновление курса
@@ -74,4 +82,4 @@ def update():
             return bad(seven)
     return False
 
-
+update()
