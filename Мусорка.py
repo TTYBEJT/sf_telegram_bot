@@ -67,3 +67,28 @@ async def handle_help(message):
 
 # if __name__ == '__main__':
 #     asyncio.run(main())
+
+# Запуск функции проверки
+# while True:
+#     sms = update()
+#     if sms is not False:
+#         mailing(sms)
+#     time.sleep(180)  # 180 секунд = 3 минуты
+
+# Рассылка сообщений
+# def mailing(sms):
+# chats = bot.get_updates()
+# print(chats)
+# for chat in chats:
+#     chat_id = chat.message.chat.id
+#     print(chat_id)
+        # bot.send_message(chat_id, sms)
+
+# Получить Chat_ID
+# chats = bot.get_updates()
+# print(chats)
+# for chat in chats:
+#     chat_id = chat.message.chat.id
+#     print(chat_id)
+
+

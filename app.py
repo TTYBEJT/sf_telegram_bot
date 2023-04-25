@@ -6,21 +6,15 @@ from utils import update, usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
 # создание экземпляра бота telebot
 bot = telebot.TeleBot(TOKEN)
 
+# chats = bot.get_updates()
+# print(chats)
+
 
 # Определение Username
 def username_(message):
     username = message.from_user.username
     username = message.from_user.first_name if not username else username
     return username
-
-
-# Рассылка сообщений
-def mailing(sms):
-    chats = bot.get_updates()
-    print(chats)
-    for chat in chats:
-        chat_id = chat.message.chat.id
-        bot.send_message(chat_id, sms)
 
 
 # Команды бота
@@ -48,7 +42,9 @@ def handle_help(message):
 # rates - предоставление всех доступных курсов валют
 @bot.message_handler(commands=['rates'])
 def handle_help(message):
+    mailing("k")
     bot.reply_to(message, "Ты думаешь я такой умный?!")
+        # print(bot.get_updates().chat.id)
     pass
 
 
@@ -62,12 +58,5 @@ def handle_start(message):
 
 # Запуск бота без помех (ну или игнорируем, x3)
 bot.polling(none_stop=True)
-
-# Запуск функции проверки
-while True:
-    sms = update()
-    if sms is not False:
-        mailing(sms)
-    time.sleep(180)  # 180 секунд = 3 минуты
 
 

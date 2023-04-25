@@ -82,4 +82,4 @@ def update():
             return bad(seven)
     return False
 
-update()
+# update()
