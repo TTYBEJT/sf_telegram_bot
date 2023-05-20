@@ -1,3 +1,12 @@
+from config import TOKEN, chat_id
+from utils import update
+
+import telebot
+import time
+
+# создание экземпляра бота telebot
+bot = telebot.TeleBot(TOKEN)
+
 # Асинхронный запуск функции проверки курса и таймер на 3 минуты
 # async def updater():
 #     while True:
@@ -42,12 +51,12 @@ async def handle_help(message):
 
 
 # запуск бота
-'''if __name__ == '__main__':
+# if __name__ == '__main__':
+#
+#     loop = asyncio.get_event_loop()
+#     loop.create_task(dp.start_polling())
+#     loop.run_forever()
 
-    loop = asyncio.get_event_loop()
-    loop.create_task(dp.start_polling())
-    loop.run_forever()
-'''
 # thread = threading.Thread(target=asyncio.run(main()))
 # thread.start()
 # loop = asyncio.get_event_loop()
@@ -82,13 +91,21 @@ async def handle_help(message):
 # for chat in chats:
 #     chat_id = chat.message.chat.id
 #     print(chat_id)
-        # bot.send_message(chat_id, sms)
+#         bot.send_message(chat_id, sms)
+
+# def read_user(user):
+#     user_d = users_cal.get(user)
+#     money = user_d.get("money")
+#     from_ = user_d.get("from_")
+#     to_ = user_d.get("to_")
+#     return money, from_, to_
+
 
 # Получить Chat_ID
-# chats = bot.get_updates()
-# print(chats)
-# for chat in chats:
-#     chat_id = chat.message.chat.id
-#     print(chat_id)
+chats = bot.get_updates()
+print(chats)
+for chat in chats:
+    chat_id = chat.message.chat.id
+    print(chat_id)
 
 
