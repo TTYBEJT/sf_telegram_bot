@@ -1,16 +1,11 @@
-from config import four, five, six, seven  # , usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
+from config import four, five, six, seven
 
 from bs4 import BeautifulSoup
 import random
 import requests
 
 # Создаем переменные для хранения курсов валют
-rub_s: float = 0.0
-rub_b: float = 4.0
-usd_s: float = 0.0
-usd_b: float = 0.0
-eur_s: float = 0.0
-eur_b: float = 0.0
+rub_b: float = 4.0  # Последний курс, чтобы не отправлялись сообщения каждый раз, когда перезапускаю
 
 
 # Обновление курса
@@ -21,9 +16,8 @@ def checker():
     table = soup.find('table', id='rb')
     tr = table.find_all('tr', class_='btm')
     td = tr[1].find_all('td', class_='fhd')
-    u_b, u_s, e_b = float(td[1].getText()), float(td[2].getText()), float(td[3].getText())
-    e_s, r_b, r_s = float(td[4].getText()), float(td[5].getText()), float(td[6].getText())
-    return u_b, u_s, e_b, e_s, r_b, r_s
+    r_b = float(td[5].getText())
+    return r_b
 
 
 # События со снижением курса
@@ -51,9 +45,9 @@ def good(rate):
 
 # Апдейтор и проверятор курса :D
 def update():
-    global usd_b, usd_s, eur_b, eur_s, rub_b, rub_s
+    global rub_b
     rub_check = rub_b
-    usd_b, usd_s, eur_b, eur_s, rub_b, rub_s = checker()
+    rub_b = checker()
     if rub_check != rub_b:
         print("Курс изменился!")
         if rub_check < four < rub_b:

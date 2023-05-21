@@ -10,7 +10,7 @@ bot = telebot.TeleBot(TOKEN)
 
 # Рассылка сообщений
 def mailing(sms):
-    print("Ебануться, изменения прошли)))")
+    print("Изменения прошли)))")
     for chat in chat_id:
         bot.send_message(chat, sms)
 
